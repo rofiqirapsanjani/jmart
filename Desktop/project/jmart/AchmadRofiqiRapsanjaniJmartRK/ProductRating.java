@@ -1,6 +1,5 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-
 /**
  * Write a description of class ProductRating here.
  *
@@ -33,4 +32,3 @@ public class ProductRating {
         return total;
     }
 }
-
