@@ -1,47 +1,38 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
+class PriceTag {
+    public static final double COMMISSION_MULTIPLIER = 0.05;
+    public static final double BOTTOM_PRICE = 20000.0;
+    public static final double BOTTOM_FEE = 1000.0;
 
+    public double discount;
+    public double price;
 
-public class PriceTag {
-    final double COMMISION_MULTIPLIER = 0.05;
-    final double BOTTOM_PRICE = 200000.0;
-    final double BOTTOM_FEE = 1000.0;
-    double discount;
-    double price;
-
-    PriceTag(double price, double discount) {
-        this.price = price;
-        this.discount = discount;
-
-    }
-
-    PriceTag(double price) {
+    public PriceTag(double price) {
         this.price = price;
         this.discount = 0.0;
-
     }
 
-    double getDiscountPrice() {
-        if (discount > 100.0) {
-            discount = 100.0;
-        }
-        if (discount == 100.0) {
-            return 0.0;
-        } else {
-            return (price - (discount / 100) * price);
-        }
+    public PriceTag(double price, double discount) {
+        this.price = price;
+        this.discount = discount;
     }
 
-    double getAjustePrice() {
-        return getDiscountPrice() + getAdminFee();
+    public double getAdjustedPrice() {
+        return getDiscountedPrice() + getAdminFee();
     }
 
-    double getAdminFee() {
-        if (getDiscountPrice() < BOTTOM_PRICE) {
+    public double getAdminFee() {
+        double discountedPrice = getDiscountedPrice();
+        if (discountedPrice < BOTTOM_PRICE)
             return BOTTOM_FEE;
-        } else {
-            return getDiscountPrice() - getDiscountPrice() * COMMISION_MULTIPLIER;
-        }
+        return COMMISSION_MULTIPLIER * discountedPrice;
     }
 
+    private double getDiscountedPrice() {
+        if (discount >= 100.0)
+            return 0.0;
+        double cut = price * discount / 100.0;
+        return price - cut;
+    }
 }

@@ -1,32 +1,26 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-
-/**
- * Write a description of class ShipmentDuration here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class ShipmentDuration {
-    final byte INSTANT = 00000001;
-    final byte SAME_DAY = 00000010;
-    final byte NEXT_DAY = 00000100;
-    final byte REGULAR = 00001000;
-    final byte KARGO = 00010000;
-    int bit;
+    public static final ShipmentDuration INSTANT = new ShipmentDuration(1 << 0);
+    public static final ShipmentDuration SAME_DAY = new ShipmentDuration(1 << 1);
+    public static final ShipmentDuration NEXT_DAY = new ShipmentDuration(1 << 2);
+    public static final ShipmentDuration REGULER = new ShipmentDuration(1 << 3);
+    public static final ShipmentDuration KARGO = new ShipmentDuration(1 << 4);
 
-    ShipmentDuration(int bit) {
+    private final int bit;
+
+    private ShipmentDuration(int bit) {
         this.bit = bit;
     }
 
-    ShipmentDuration(ShipmentDuration... args) {
-        byte hasil = 00000000;
-        for (int i : args) {
-            hasil = hasil | i;
-        }
+    public ShipmentDuration(ShipmentDuration... args) {
+        int flags = 0;
+        for (ShipmentDuration arg : args)
+            flags |= arg.bit;
+        bit = flags;
     }
 
-    boolean isDuration(ShipmentDuration reference) {
-
+    public boolean isDuration(ShipmentDuration reference) {
+        return (bit & reference.bit) != 0;
     }
 }

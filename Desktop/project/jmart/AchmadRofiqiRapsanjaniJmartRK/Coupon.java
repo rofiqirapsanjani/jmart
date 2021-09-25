@@ -6,34 +6,53 @@ package AchmadRofiqiRapsanjaniJmartRK;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Coupon {
-    String name;
-    int code;
-    double cut;
-    Type type;
-    double minimum;
-    boolean used;
+public class Coupon 
+{
+    public final String name;
+    public final int code;
+    public final double cut;
+    public final Type type;
+    public final double minimum;
+    private boolean used;
 
-    Coupon(String name, int code, Type type, double cut, double minimun) {
-        used = false;
+    public enum Type
+    {
+        DISCOUNT,
+        REBATE
     }
 
-    boolean isUsed() {
-        return used;
+    public Coupon(String name, int code, Type type, double cut, double minimum)
+    {
+        this.name = name;
+        this.code = code;
+        this.cut = cut;
+        this.type = type;
+        this.minimum = minimum;
+        this.used = false;
     }
+    
+    public boolean isUsed() { return used; }
 
-    boolean canApply(PriceTag priceTag) {
-        if ((PriceTag.getAjustedPrice() >= minimum) && used == false) {
-            return true;
-        } else {
+    public boolean canApply(PriceTag priceTag)
+    {
+        if (used || priceTag.getAdjustedPrice() < minimum)
             return false;
-        }
+        return true;
     }
 
-    double apply(PriceTag priceTag) {
+    public double apply(PriceTag priceTag)
+    {
         used = true;
-        priceTag = PriceTag.getAjustedPrice() - cut;
-        return priceTag;
+        double adjustedPrice = priceTag.getAdjustedPrice();
+        switch (type)
+        {
+            case REBATE:
+                if (adjustedPrice <= cut) return 0.0;
+                return adjustedPrice - cut;
+            case DISCOUNT:
+                if (cut >= 100.0) return 0.0;
+                return adjustedPrice - adjustedPrice * (cut / 100);
+        }
+        return 0.0;
     }
-
 }
