@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=FileParser
+comment1.params=content
+comment1.target=java.lang.Object\ write(java.lang.String)
+comment2.params=content
+comment2.target=java.lang.Object\ newInstance(java.lang.String)
+comment3.params=
+comment3.target=boolean\ read()
+numComments=4

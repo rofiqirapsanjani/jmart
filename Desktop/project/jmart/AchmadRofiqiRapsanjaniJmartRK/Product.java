@@ -1,6 +1,6 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-public class Product {
+class Product extends Recognizable {
     private static int idCounter = 0;
 
     public final int id;
@@ -11,7 +11,9 @@ public class Product {
     public ProductCategory category;
     public ProductRating rating;
 
-    public Product(String name, int weight, boolean conditionUsed, PriceTag priceTag, ProductCategory category) {
+    Product(int id, int storeId, String name, int weight, boolean conditionUsed, PriceTag priceTag,
+            ProductCategory category) {
+        super(id);
         this.id = idCounter++;
         this.name = name;
         this.weight = weight;
@@ -20,4 +22,18 @@ public class Product {
         this.category = category;
         this.rating = new ProductRating();
     }
+
+    Product(int id, Store store, String name, int weight, boolean conditionUsed, PriceTag priceTag,
+            ProductCategory category) {
+        super(id);
+        this.id = idCounter++;
+        this.name = name;
+        this.weight = weight;
+        this.conditionUsed = conditionUsed;
+        this.priceTag = priceTag;
+        this.category = category;
+        this.rating = new ProductRating();
+
+    }
+
 }
