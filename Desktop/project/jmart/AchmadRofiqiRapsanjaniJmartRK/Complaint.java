@@ -1,20 +1,13 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-public class Complaint extends Transaction implements FileParser {
+public class Complaint extends Recognizable implements FileParser {
     public int paymentId;
     public String desc;
+    public String date = "20 08 2021";
 
-    public Complaint(int id, int buyerId, int storeId, int paymentID, String desc) {
-        super(id, buyerId, storeId);
-        this.paymentId = paymentID;
+    public Complaint(int id, String desc) {
+        super(id);
         this.desc = desc;
-
-    }
-
-    public Complaint(int id, Payment payment, String desc) {
-        super(id, null, null);
-        this.desc = desc;
-        this.paymentId = id;
 
     }
 
@@ -22,14 +15,6 @@ public class Complaint extends Transaction implements FileParser {
     public boolean read() {
         // TODO Auto-generated method stub
         return false;
-    }
-
-    public boolean validate() {
-        return false;
-    }
-
-    public Transaction perform() {
-        return null;
     }
 
 }

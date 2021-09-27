@@ -18,4 +18,11 @@ public class Account extends Recognizable implements FileParser {
         // TODO Auto-generated method stub
         return false;
     }
+
+    public String toString() {
+        this.name = "Ramadhan";
+        this.email = "ramdhanganteng@gmail.com";
+        this.password = "gu3G4ntEnG";
+        return toString();
+    }
 }

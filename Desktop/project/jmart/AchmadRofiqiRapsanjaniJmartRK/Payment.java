@@ -1,33 +1,28 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-public class Payment extends Transaction implements FileParser {
+public class Payment extends Invoice implements Transactor {
     public int productId;
-    ShipmentDuration shipmentDuration;
+    Shipment shipment;
 
-    public Payment(int id, int buyerId, int storeId, int productId, ShipmentDuration shipmentDuration) {
-        super(id, buyerId, storeId);
-        this.productId = productId;
-        this.shipmentDuration = shipmentDuration;
-
-    }
-
-    public Payment(int id, int buyerId, Product product, ShipmentDuration shipmentDuration) {
-        super(id, buyerId, buyerId);
-        this.shipmentDuration = shipmentDuration;
-    }
-
-    public boolean validate() {
-        return false;
-    }
-
-    public Transaction perform() {
-        return null;
+    public Payment(int id, int buyerId, int productId, Shipment shipment) {
+        super(id, buyerId, productId);
+        this.shipment = shipment;
     }
 
     @Override
-    public boolean read() {
+    public boolean validate() {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    public double getTotalPay() {
+        return 0.0;
+    }
+
+    @Override
+    public Invoice perform() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

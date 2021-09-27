@@ -27,4 +27,11 @@ public class Store extends Recognizable implements FileParser {
         // TODO Auto-generated method stub
         return false;
     }
+
+    public String toString() {
+        this.name = "PT Madju Merdeka";
+        this.address = "Jl. Kukusan";
+        this.phoneNumber = "628777xxxx";
+        return toString();
+    }
 }
