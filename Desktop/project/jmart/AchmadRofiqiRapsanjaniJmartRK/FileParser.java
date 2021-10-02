@@ -1,15 +1,13 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
 public interface FileParser {
+    public boolean read(String content);
 
-    default Object write(String content) {
+    default Object write() {
         return null;
     }
 
-    default Object newInstance(String content) {
+    public static Object newInstance(String content) {
         return null;
     }
-
-    boolean read();
-
 }

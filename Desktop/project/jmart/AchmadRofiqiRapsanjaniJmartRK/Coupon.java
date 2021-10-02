@@ -1,6 +1,12 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-public class Coupon extends Recognizable {
+public class Coupon extends Recognizable implements FileParser {
+
+    public enum Type {
+        DISCOUNT, REBATE
+    }
+
+    // instance variables - replace the example below with your own
     public final String name;
     public final int code;
     public final double cut;
@@ -8,16 +14,15 @@ public class Coupon extends Recognizable {
     public final double minimum;
     private boolean used;
 
-    public enum Type {
-        DISCOUNT, REBATE
-    }
-
+    /**
+     * Constructor for objects of class Coupon
+     */
     public Coupon(int id, String name, int code, Type type, double cut, double minimum) {
         super(id);
         this.name = name;
         this.code = code;
-        this.cut = cut;
         this.type = type;
+        this.cut = cut;
         this.minimum = minimum;
         this.used = false;
     }
@@ -27,24 +32,29 @@ public class Coupon extends Recognizable {
     }
 
     public boolean canApply(PriceTag priceTag) {
-        if (used || priceTag.getAdjustedPrice() < minimum)
+        if (priceTag.getAdjustedPrice() >= minimum && !used) {
+            return true;
+        } else {
             return false;
-        return true;
+        }
     }
 
     public double apply(PriceTag priceTag) {
         used = true;
-        double adjustedPrice = priceTag.getAdjustedPrice();
-        switch (type) {
-            case REBATE:
-                if (adjustedPrice <= cut)
-                    return 0.0;
-                return adjustedPrice - cut;
-            case DISCOUNT:
-                if (cut >= 100.0)
-                    return 0.0;
-                return adjustedPrice - adjustedPrice * (cut / 100);
+        if (type == Type.DISCOUNT) {
+            if (cut >= 100) {
+                return (priceTag.getAdjustedPrice() - priceTag.getAdjustedPrice() * (100 / 100)); // cut max 100%
+            } else if (cut <= 0) {
+                return (priceTag.getAdjustedPrice() - priceTag.getAdjustedPrice() * (0 / 100)); // cut min 0%
+            } else {
+                return (priceTag.getAdjustedPrice() - priceTag.getAdjustedPrice() * (cut / 100));
+            }
         }
-        return 0.0;
+        return (priceTag.getAdjustedPrice() - cut);
+    }
+
+    @Override
+    public boolean read(String content) {
+        return false;
     }
 }

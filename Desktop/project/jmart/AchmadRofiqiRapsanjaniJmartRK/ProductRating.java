@@ -1,34 +1,35 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-/**
- * Write a description of class ProductRating here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class ProductRating {
-    long total;
-    long count;
+    private long total;
+    private long count;
 
-    ProductRating() {
-        total = 0;
-        count = 0;
+    /**
+     * Constructor for objects of class ProductRating
+     */
+    public ProductRating() {
+        this.total = 0;
+        this.count = 0;
     }
 
-    void insert(int rating) {
-        total = total + rating;
+    public void insert(int rating) {
+        total += rating;
         count++;
     }
 
-    double getAverage() {
-        return getCount() / getTotal();
+    public double getAverage() {
+        if (count == 0) {
+            return 0.0;
+        } else {
+            return total / (double) count;
+        }
     }
 
-    long getCount() {
+    public long getCount() {
         return count;
     }
 
-    long getTotal() {
+    public long getTotal() {
         return total;
     }
 }

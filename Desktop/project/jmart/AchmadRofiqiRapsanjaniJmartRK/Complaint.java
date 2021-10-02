@@ -1,19 +1,20 @@
+
 package AchmadRofiqiRapsanjaniJmartRK;
 
+import java.util.Date;
+
 public class Complaint extends Recognizable implements FileParser {
-    public int paymentId;
+    public Date date = new Date();
     public String desc;
-    public String date = "20 08 2021";
 
     public Complaint(int id, String desc) {
         super(id);
         this.desc = desc;
-
+        date.getTime();
     }
 
     @Override
-    public boolean read() {
-        // TODO Auto-generated method stub
+    public boolean read(String content) {
         return false;
     }
 
