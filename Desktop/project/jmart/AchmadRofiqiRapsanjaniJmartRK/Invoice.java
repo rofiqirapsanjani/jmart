@@ -1,5 +1,8 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 public abstract class Invoice extends Recognizable implements FileParser {
     public String date;
     public int buyerId;
@@ -14,6 +17,14 @@ public abstract class Invoice extends Recognizable implements FileParser {
 
     enum Rating {
         NONE, BAD, NEUTRAL, GOOD
+    }
+
+    public ArrayList<Record> history = new ArrayList<>();
+
+    static class Record {
+        public Status status;
+        public Date date;
+        public String message;
     }
 
     protected Invoice(int id, int buyerId, int productId) {

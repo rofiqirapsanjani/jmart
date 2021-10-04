@@ -10,12 +10,16 @@ public class Complaint extends Recognizable implements FileParser {
     public Complaint(int id, String desc) {
         super(id);
         this.desc = desc;
-        date.getTime();
     }
 
     @Override
     public boolean read(String content) {
         return false;
+    }
+
+    public String toString() {
+        date.getTime();
+        return ("date=" + date + ", desc=" + desc);
     }
 
 }

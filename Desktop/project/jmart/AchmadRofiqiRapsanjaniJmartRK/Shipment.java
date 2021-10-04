@@ -27,7 +27,7 @@ public class Shipment implements FileParser {
         }
 
         public String getEstimatedArrival(Date reference) {
-            if (bit == 00000001 | bit == 00000001) {
+            if (bit == 00000001 | bit == 00000010) {
                 return curDate;
             }
             if (bit == 00000100) {
