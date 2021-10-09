@@ -3,7 +3,7 @@ package AchmadRofiqiRapsanjaniJmartRK;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Account extends Recognizable implements FileParser {
+public class Account extends Recognizable implements FileParser, Comparable<Recognizable> {
     // instance variables - replace the example below with your own
     public String name;
     public String email;
