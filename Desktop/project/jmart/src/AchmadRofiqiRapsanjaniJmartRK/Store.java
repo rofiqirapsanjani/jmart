@@ -1,46 +1,47 @@
 package AchmadRofiqiRapsanjaniJmartRK;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Store extends Recognizable implements FileParser {
-    public String name;
+/**
+ * Write a description of class Store here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+
+public class Store{
+    public static final String REGEX_PHONE = "^\\d{9,12}$";
+    public static final String REGEX_NAME = "^[A-Z].{4,20}$";
+
     public String address;
+    public double balance;
+    public String name;
     public String phoneNumber;
-    public final String REGEX_PHONE = "[0-9]{9,12}";
-    public final String REGEX_NAME = "A-Z][a-zA-Z0-9\s{2,}]{3,19}";
 
-    // constructors
-    public Store(int accountId, String name, String address, String phoneNumber) {
-        super(accountId);
+
+    public Store(String name, String address, String phoneNumber ,double balance)
+    {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.balance = balance;
     }
 
-    public Store(Account account, String name, String address, String phoneNumber) {
-        super(account.id);
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public boolean read(String content) {
-        return false;
-    }
-
-    @Override
     public String toString() {
-        return ("name: " + name + "\naddress: " + address + "\nphoneNumber: " + phoneNumber);
+        return
+                "Name: "+this.name+
+                        "\nemail: " +this.address+
+                        "\npassword : " +this.phoneNumber+
+                        "\nbalance : " +this.balance;
     }
+    public boolean validate(){
+        Pattern pat1 = Pattern.compile(REGEX_PHONE);
+        Pattern pat2 = Pattern.compile(REGEX_NAME);
 
-    public boolean validate() {
-        Pattern pattern = Pattern.compile(REGEX_NAME);
-        Matcher matcher = pattern.matcher(name);
-        Pattern pattern_phone = Pattern.compile(REGEX_PHONE);
-        Matcher matcher_phone = pattern_phone.matcher(phoneNumber);
-        return matcher.find() && matcher_phone.find();
+        Matcher match1 = pat1.matcher(name);
+        Matcher match2 = pat2.matcher(phoneNumber);
+
+        boolean temp = match1.find() && match2.find();
+        return temp;
     }
-
 }
