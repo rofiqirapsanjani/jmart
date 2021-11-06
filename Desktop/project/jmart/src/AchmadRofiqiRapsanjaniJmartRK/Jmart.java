@@ -1,39 +1,60 @@
 package AchmadRofiqiRapsanjaniJmartRK;
-import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 
-/**
- * Write a description of class Jmart here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-public class Jmart {
-    class Country {
-        public String name;
-        public int population;
-        public List<String> listOfStates;
+
+
+class Jmart
+{
+    public static List<Product> filterByCategory(List<Product> list, ProductCategory category){
+        List<Product> products = new ArrayList<>();
+        for(Product product : list){
+            if(product.category.equals(category)){
+                products.add(product);
+            }
+        }
+        return products;
+    }
+    public static List<Product> filterByPrice(List<Product> list, double minPrice, double maxPrice){
+        if(minPrice <= 0){
+            list.removeIf(product -> product.price > maxPrice);
+        }else if(maxPrice <= 0){
+            list.removeIf(product -> product.price < minPrice);
+        }else{
+            list.removeIf(product -> (product.price < minPrice) || (product.price > maxPrice));
+        }
+        return list;
+    }
+    public static void main(String[] args)
+    {
+        try{
+// sesuaikan argument method read sesuai dengan lokasi resource
+            List<Product> list = read("C:\\Users\\vicky\\Desktop\\project\\jmart\\src\\AchmadRofiqiRapsanjaniJmartRK/randomProductList.json");
+            List<Product> filtered = filterByPrice(list, 13000.0, 15000.0);
+            filtered.forEach(product -> System.out.println(product.price));
+        }catch (Throwable t)
+        {
+            t.printStackTrace();
+        }
 
     }
-
-    public static void main(String[] args) {
-        String filepath = "C:\\Users\\vicky\\Desktop\\project\\jmart\\src\\AchmadRofiqiRapsanjaniJmartRK/city.json";
-        Gson gson = new Gson();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filepath));
-            Country input = gson.fromJson(br, Country.class);
-            System.out.println("name: " + input.name);
-            System.out.println("population: "+ input.population);
-            System.out.println("states:");
-            input.listOfStates.forEach(state -> System.out.println(state));
-
-        } catch (IOException e)
-        {
+    public static List<Product> read(String filepath) throws FileNotFoundException {
+        List<Product> products = new ArrayList<>();
+        try{
+            Gson gson = new Gson();
+            JsonReader reader = new JsonReader(new FileReader(filepath));
+            reader.beginArray();
+            while(reader.hasNext()){
+                products.add(gson.fromJson(reader, Product.class));
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
+        return products;
     }
 }
-
