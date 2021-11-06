@@ -1,47 +1,35 @@
 package AchmadRofiqiRapsanjaniJmartRK;
-
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
-public abstract class Invoice extends Recognizable implements FileParser {
-    public String date;
+
+public abstract class Invoice extends Serializable  {
     public int buyerId;
-    public int productId;
     public int complaintId;
+    public final Date date;
+    public ArrayList<Record> history = new ArrayList<>();
+    public int productId;
     public Rating rating;
     public Status status;
-
-    enum Status {
-        WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT, FINISHED, FAILED
+    enum Status{
+        WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY,
+        COMPLAINT, FINISHED, FAILED
     }
-
-    enum Rating {
+    enum Rating{
         NONE, BAD, NEUTRAL, GOOD
     }
-
-    public ArrayList<Record> history = new ArrayList<>();
-
-    static class Record {
-        public Status status;
+    class Record{
         public Date date;
         public String message;
+        public Status status;
     }
-
-    protected Invoice(int id, int buyerId, int productId) {
-        super(id);
+    protected Invoice(int buyerId, int productId){
         this.buyerId = buyerId;
         this.productId = productId;
-        this.date = "apapun";
+        this.date = new Date();
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
         this.complaintId = -1;
     }
-
-    @Override
-    public boolean read(String content) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
     public abstract double getTotalPay();
 }

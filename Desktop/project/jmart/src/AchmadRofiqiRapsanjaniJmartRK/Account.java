@@ -3,16 +3,16 @@ package AchmadRofiqiRapsanjaniJmartRK;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Account extends Recognizable implements FileParser, Comparable<Recognizable> {
+public class Account extends Serializable implements FileParser, Comparable<Serializable> {
     // instance variables - replace the example below with your own
     public String name;
     public String email;
     public String password;
+
     public static final String REGEX_EMAIL = "[^A-Za-z0-9.&_*~]+@[^A-Za-z0-9.-]+\\.[A-Z]{2,4}";
     public static final String REGEX_PASSWORD = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])([a-zA-Z0-9@$!%*?&]{8,})$";
 
     public Account(int id, String name, String email, String password) {
-        super(id);
         this.name = name;
         this.email = email;
         this.password = password;

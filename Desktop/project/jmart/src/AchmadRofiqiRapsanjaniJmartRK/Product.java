@@ -1,42 +1,36 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-public class Product extends Recognizable implements FileParser {
-    public int storeId;
-    public String name;
-    public int weight;
-    public boolean conditionUsed;
-    public PriceTag priceTag;
-    public ProductCategory category;
-    public ProductRating rating;
-    public Shipment.MultiDuration multiDuration;
+    public class Product extends Serializable
+    {
+        public int accountId;
+        public ProductCategory category;
+        public boolean conditionUsed;
+        public double discount;
+        public String name;
+        public double price;
+        public byte shipmentPlans;
+        public int weight;
+        /**
+         * Constructor for objects of class Product
+         */
+        public Product(int accountId, String name, int weight, boolean conditionUsed, double price, double discount,
+                       ProductCategory category, byte shipmentPlans)
+        {
+            this.accountId = accountId;
+            this.name = name;
+            this.weight = weight;
+            this.conditionUsed = conditionUsed;
+            this.price = price;
+            this.discount = discount;
+            this.category = category;
+            this.shipmentPlans = shipmentPlans;
 
-    /**
-     * Constructor for objects of class Product
-     */
-    public Product(int id, int storeId, String name, int weight, boolean conditionUsed, PriceTag priceTag,
-            ProductCategory category, Shipment.MultiDuration mutliDuration) {
-        super(id);
-        this.storeId = storeId;
-        this.name = name;
-        this.weight = weight;
-        this.conditionUsed = conditionUsed;
-        this.priceTag = priceTag;
-        this.category = category;
-        this.rating = new ProductRating();
-        this.multiDuration = multiDuration;
+        }
+        @Override
+        public String toString(){
+            return("Name: " + name + "\nWeight: " + weight + "\nconditionUsed: " + conditionUsed +
+                    "\nprice: " + price + "\ncategory: " + category + "\ndiscount: " + discount + "\naccountId: " + accountId);
+        }
 
     }
 
-    @Override
-    public boolean read(String content) {
-        return false;
-    }
-
-    public String toString() {
-        // return("Name: Harry Potter\nWeight: 1\nconditionUsed: false\npriceTag:
-        // 21000.0\ncategory: BOOK\nrating: 0\nstoreId: 1");
-        return ("Name: " + name + "\nWeight: " + weight + "\nconditionUsed: " + conditionUsed + "\npriceTag: "
-                + priceTag + "\ncategory: " + category + "\nrating: " + rating + "\nstoreId: " + storeId);
-    }
-
-}
