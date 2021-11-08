@@ -14,6 +14,7 @@ public class Account extends Serializable implements FileParser, Comparable<Seri
 
     public Account(int id, String name, String email, String password) {
         this.name = name;
+
         this.email = email;
         this.password = password;
     }

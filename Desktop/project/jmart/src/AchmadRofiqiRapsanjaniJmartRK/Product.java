@@ -26,6 +26,7 @@ package AchmadRofiqiRapsanjaniJmartRK;
             this.shipmentPlans = shipmentPlans;
 
         }
+
         @Override
         public String toString(){
             return("Name: " + name + "\nWeight: " + weight + "\nconditionUsed: " + conditionUsed +
