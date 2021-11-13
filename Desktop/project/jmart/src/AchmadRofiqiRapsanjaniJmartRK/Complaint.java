@@ -5,7 +5,8 @@ import java.text.SimpleDateFormat;
 
 
 
-public class Complaint extends Serializable  {
+public class Complaint extends Serializable
+{
     public Date date;
     public String desc;
 
@@ -21,5 +22,6 @@ public class Complaint extends Serializable  {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return ("Complaint{date=" + df.format(date) + ", desc='" + desc + "'}");
     }
+
 
 }

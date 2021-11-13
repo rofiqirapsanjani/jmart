@@ -3,7 +3,8 @@ import java.util.Date;
 import java.util.ArrayList;
 
 
-public abstract class Invoice extends Serializable  {
+public abstract class Invoice extends Serializable
+{
     public int buyerId;
     public int complaintId;
     public final Date date;

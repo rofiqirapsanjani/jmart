@@ -1,7 +1,7 @@
 package AchmadRofiqiRapsanjaniJmartRK;
 
-public class Coupon extends Serializable  {
-
+public class Coupon extends Serializable
+{
     public enum Type{
         DISCOUNT, REBATE
     }
@@ -50,4 +50,5 @@ public class Coupon extends Serializable  {
     {
         return used;
     }
+
 }
