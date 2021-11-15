@@ -14,6 +14,13 @@ import java.util.stream.Collectors;
 
 class Jmart
 {
+    static long DELIVERED_LIMIT_MS;
+    static long ON_DELIVERY_LIMIT_MS;
+    static long ON_PROGRESS_LIMIT_MS;
+    static long WAITING_CONF_LIMIT_MS;
+    public static boolean paymentTimekeeper (Payment payment){
+        return false;
+    }
     public static List<Product> filterByAccountId(List<Product> list, int accountId, int page, int pageSize){
         Predicate<Product> pred = p -> (p.accountId == accountId);
         return paginate(list, page, pageSize, pred);
@@ -42,25 +49,50 @@ class Jmart
         return list;
     }
 
-    public static void main(String[] args)
-    {
-        try{
-            List<Product> list = read("C:/Users/Samuel/Desktop/OOP Git/jmart/src/randomProductList.json");
+    public static void main(String[] args) {
+        //List<Product> list = read("C:/Users/vicky/Desktop/project/jmart/src/AchmadRofiqiRapsanjaniJmartRK/account.json");
 
-            List<Product> filteredByName = filterByName(list, "gtx", 1, 5);
-            filteredByName.forEach(product -> System.out.println(product.name));
+        //List<Product> filteredByName = filterByName(list, "gtx", 1, 5);
+        //filteredByName.forEach(product -> System.out.println(product.name));
 
-            System.out.println("-------------------------");
+        //System.out.println("-------------------------");
 
-            List<Product> filteredByAccountId = filterByAccountId(list, 1, 0, 5);
-            filteredByAccountId.forEach(product -> System.out.println(product.name));
-
-        }catch (Throwable t)
-        {
+        //List<Product> filteredByAccountId = filterByAccountId(list, 1, 0, 5);
+        //filteredByAccountId.forEach(product -> System.out.println(product.name));
+        try {
+            String filepath = "C:\\Users\\vicky\\Desktop\\project\\jmart\\src\\AchmadRofiqiRapsanjani\\account.json";
+            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.add(new Account("name", "email", "password"));
+            tableAccount.writeJson();
+            tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.forEach(account -> System.out.println(account.toString() + "asd"));
+        } catch (Throwable t) {
             t.printStackTrace();
         }
+        try {
+            JsonTable<Payment> table = new JsonTable<>(Payment.class, "C:\\Users\\vicky\\Desktop\\project\\jmart\\src\\AchmadRofiqiRapsanjani\\randomPaymentList.json");
+            ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);
+            paymentPool.start();
+            table.forEach(payment -> paymentPool.add((Payment) payment));
+            while (paymentPool.size() != 0);
+            paymentPool.exit();
+            while (paymentPool.isAlive());
+            System.out.println("Thread exited successfully");
+            Gson gson = new Gson();
+            table.forEach(payment ->{
+                String history ;
+               // history       = gson.toJson(payment.history);
+              //  System.out.println(history);
+            });
 
+
+
+
+        } catch (Throwable t){
+            t.printStackTrace();
+        }
     }
+
     private static List<Product> paginate(List<Product> list, int page, int pageSize, Predicate<Product> pred)
     {
         try{

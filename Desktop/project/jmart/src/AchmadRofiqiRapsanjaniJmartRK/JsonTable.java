@@ -38,17 +38,4 @@ public class JsonTable <T> extends Vector {
 
     }
 
-    public static void main(String[] args) {
-        try {
-            String filepath ="a/b/c/account.json";
-            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
-            tableAccount.add(new Account("name", "emai", "password"));
-            tableAccount.writeJson();
-        }catch (Throwable t){
-            t.printStackTrace();
-        }
-    }
-
-
-
 }

@@ -6,28 +6,29 @@ import java.util.Date;
 
 public class Payment extends Invoice
 {
-    public Shipment shipment;
+    public ArrayList<Record> history = new ArrayList<>();
     public int productCount;
-    ArrayList <Record> history = new ArrayList<>();
-
+    public Shipment shipment;
+    static class Record{
+        public final Date date;
+        public String message;
+        public Status status;
+        public Record(Status status, String message){
+            this.date = new Date();
+            this.status = status;
+            this.message = message;
+        }
+    }
     public Payment(int buyerId, int productId, int productCount, Shipment shipment){
         super(buyerId, productId);
         this.productCount = productCount;
         this.shipment = shipment;
     }
     @Override
-    public double getTotalPay(){
-        return 0.0;
+    public double getTotalPay(Product product){
+        return (productCount * Treasury.getAdjustedPrice(product.price, product.discount));
     }
-    public static class Record {
-        public  Date date;
-        public  String message;
-        public Status status;
-        public Record(Status status, String message){
 
-        }
-
-    }
 
 
 }

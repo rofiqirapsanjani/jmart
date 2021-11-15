@@ -32,5 +32,5 @@ public abstract class Invoice extends Serializable
         this.status = Status.WAITING_CONFIRMATION;
         this.complaintId = -1;
     }
-    public abstract double getTotalPay();
+    public abstract double getTotalPay(Product product);
 }
