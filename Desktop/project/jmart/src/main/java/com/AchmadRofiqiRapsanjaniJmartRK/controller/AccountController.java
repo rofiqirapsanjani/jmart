@@ -71,10 +71,12 @@ public class AccountController implements BasicGetController<Account> {
     //}
     @PostMapping("{id}/registerStore")
     Store registerStore(int id, String name, String address, String phoneNumber){
+        return null;
 
     }
     @PostMapping("{id}/topUp")
     boolean topUp(int id, double balance){
+        return true;
 
     }
 
