@@ -10,8 +10,6 @@ import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import com.AchmadRofiqiRapsanjaniJmartRK.JsonTable;
-import com.AchmadRofiqiRapsanjaniJmartRK.Serializable;
 
 /** 
  * Handle load and store for {@link JsonTable}

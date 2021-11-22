@@ -1,11 +1,10 @@
 package com.AchmadRofiqiRapsanjaniJmartRK;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
+import com.AchmadRofiqiRapsanjaniJmartRK.dbjson.JsonTable;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import java.util.stream.Collectors;
@@ -66,7 +65,7 @@ class Jmart
         try {
             String filepath = "C:\\Users\\vicky\\Desktop\\project\\jmart\\src\\AchmadRofiqiRapsanjani\\account.json";
             JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
-            tableAccount.add(new Account("name", "email", "password"));
+            tableAccount.add(new Account("name", "email", "password", 0));
             tableAccount.writeJson();
             tableAccount = new JsonTable<>(Account.class, filepath);
             tableAccount.forEach(account -> System.out.println(account.toString() + "asd"));

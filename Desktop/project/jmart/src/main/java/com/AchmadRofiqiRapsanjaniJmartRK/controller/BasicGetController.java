@@ -1,9 +1,8 @@
 package com.AchmadRofiqiRapsanjaniJmartRK.controller;
 
-import com.AchmadRofiqiRapsanjaniJmartRK.JsonTable;
-import com.AchmadRofiqiRapsanjaniJmartRK.Serializable;
+import com.AchmadRofiqiRapsanjaniJmartRK.dbjson.JsonTable;
+import com.AchmadRofiqiRapsanjaniJmartRK.dbjson.Serializable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 

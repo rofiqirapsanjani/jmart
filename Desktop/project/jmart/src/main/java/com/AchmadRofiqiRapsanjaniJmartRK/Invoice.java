@@ -1,4 +1,6 @@
 package com.AchmadRofiqiRapsanjaniJmartRK;
+import com.AchmadRofiqiRapsanjaniJmartRK.dbjson.Serializable;
+
 import java.util.Date;
 import java.util.ArrayList;
 

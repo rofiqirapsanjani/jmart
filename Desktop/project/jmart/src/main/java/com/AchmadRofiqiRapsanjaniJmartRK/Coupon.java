@@ -1,5 +1,7 @@
 package com.AchmadRofiqiRapsanjaniJmartRK;
 
+import com.AchmadRofiqiRapsanjaniJmartRK.dbjson.Serializable;
+
 public class Coupon extends Serializable
 {
     public enum Type{
