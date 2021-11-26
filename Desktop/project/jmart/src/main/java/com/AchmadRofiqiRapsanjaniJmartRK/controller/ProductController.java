@@ -1,45 +1,45 @@
 package com.AchmadRofiqiRapsanjaniJmartRK.controller;
 
-import com.AchmadRofiqiRapsanjaniJmartRK.Account;
-import com.AchmadRofiqiRapsanjaniJmartRK.Product;
-import com.AchmadRofiqiRapsanjaniJmartRK.ProductCategory;
+import com.AchmadRofiqiRapsanjaniJmartRK.*;
 import com.AchmadRofiqiRapsanjaniJmartRK.dbjson.JsonAutowired;
 import com.AchmadRofiqiRapsanjaniJmartRK.dbjson.JsonTable;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public class ProductController implements BasicGetController<Product> {
-    public static @JsonAutowired(value= Product.class, filepath="C:\\Users\\vicky\\Desktop\\project\\jmart\\src\\AchmadRofiqiRapsanjani\\product.json") JsonTable<Product> productTable;
+@RestController
+@RequestMapping("/product")
+public class ProductController implements BasicGetController<Product>{
+    public static @JsonAutowired(value= Product.class, filepath="C:\\Users\\vicky\\Desktop\\project\\jmart\\src\\AchmadRofiqiRapsanjani\\randomProductList.json") JsonTable<Product> productTable;
 
-    @GetMapping("/create")
-    Product create(int accountId, String name, int weight, boolean conditionUsed, double discount, ProductCategory category, byte shipmentPlans){
 
+    @PostMapping("/create")
+    Product create(@RequestParam int accountId, @RequestParam String name, @RequestParam int weight, @RequestParam boolean conditionUsed, @RequestParam double price, @RequestParam double discount, @RequestParam ProductCategory category, @RequestParam byte shipmentPlans){
+        for(Account account : AccountController.accountTable){
+            if(account.id == accountId && account.store != null){
+                Product newProduct = new Product(accountId, name, weight, conditionUsed, price, discount, category, shipmentPlans);
+                productTable.add(newProduct);
+                return newProduct;
+            }
+        }
         return null;
     }
-
-    public JsonTable<Product> getJsonTable(){
+    public JsonTable<Product> getJsonTable() {
         return productTable;
     }
-
     @GetMapping("/{id}/store")
-
-    public List<Product> getProductByStore(int id,int page, int pageSize) {
-        return  null;
+    List<Product> getProductByStore(@RequestParam int id, @RequestParam int page, @RequestParam int pageSize){
+        return Algorithm.<Product>paginate(getJsonTable(),page,pageSize, p -> (p.accountId == id));
     }
-
     @GetMapping("/getFiltered")
-    public List<Product> getProductFiltered(int page, int pageSize, int accountId, String search, int minPrice, int maxPrice, ProductCategory category) {
-        return null;
-    }
-    @Override
-    public List<Product> getPage(int page, int pageSize) {
-        return null;
+    List<Product> getProductFiltered(@RequestParam(defaultValue="0")  int page, @RequestParam(defaultValue="5")  int pageSize,
+                                     @RequestParam  int accountId, @RequestParam  String search,
+                                     @RequestParam  int minPrice, @RequestParam  int maxPrice,
+                                     @RequestParam  ProductCategory category)
+    {
+        Predicate<Product> pred = p -> ((p.accountId == accountId) && (p.name.toLowerCase().contains(search.toLowerCase())) && (p.price >= minPrice && p.price <= maxPrice) && (p.category == category));
+        return Algorithm.<Product>paginate(getJsonTable(),page,pageSize, pred);
     }
 
-    @Override
-    public Product getById(int id) {
-        return null;
-    }
 
 }
